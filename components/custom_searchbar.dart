@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING SEARCHBAR
+ */
 class CustomSearchBox extends StatefulWidget {
   final Function onCancel;
   final Function onSearch;

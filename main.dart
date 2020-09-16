@@ -1,36 +1,12 @@
-import 'package:education_app/screens/games/add-quiz.dart';
-import 'package:education_app/screens/games/add-true-false.dart';
-import 'package:education_app/screens/games/answers-graph.dart';
-import 'package:education_app/screens/games/connect-game.dart';
-import 'package:education_app/screens/games/correct-answer.dart';
-import 'package:education_app/screens/games/countdown.dart';
-import 'package:education_app/screens/games/details-credit.dart';
-import 'package:education_app/screens/games/game-over.dart';
-import 'package:education_app/screens/games/incorrect-answer.dart';
-import 'package:education_app/screens/games/multi-questions.dart';
-import 'package:education_app/screens/games/nickname.dart';
-import 'package:education_app/screens/games/quiz-get-ready.dart';
-import 'package:education_app/screens/games/rating.dart';
-import 'package:education_app/screens/games/settings.dart';
-import 'package:education_app/screens/games/sub-categories.dart';
-import 'package:education_app/screens/games/subscription-plan.dart';
-import 'package:education_app/screens/games/summary.dart';
-import 'package:education_app/screens/games/waiting-player.dart';
-import 'package:education_app/screens/phone-authentication.dart';
-import 'package:education_app/testing/cache-testing.dart';
-import 'package:education_app/testing/data-table-example.dart';
-import 'package:education_app/testing/demo-sqlite.dart';
-import 'package:education_app/testing/dialog-flow.dart';
-import 'package:education_app/testing/firebase_chat.dart';
-import 'package:education_app/testing/native-code-tester.dart';
-import 'package:education_app/testing/signature-pad.dart';
-import 'package:education_app/testing/view-pdf.dart';
-import 'package:education_app/testing/web_socket.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webfeed/domain/media/rating.dart';
 
 import './constants.dart';
+
+import './providers/auth.dart';
+import './providers/rss_service.dart';
 
 import './screens/home.dart';
 import './screens/forget-password.dart';
@@ -61,6 +37,25 @@ import './screens/library-read.dart';
 import './screens/games/browse-categories.dart';
 import './screens/games/create-game.dart';
 import './screens/games/main-screen.dart';
+import './screens/games/add-quiz.dart';
+import './screens/games/add-true-false.dart';
+import './screens/games/answers-graph.dart';
+import './screens/games/connect-game.dart';
+import './screens/games/correct-answer.dart';
+import './screens/games/countdown.dart';
+import './screens/games/details-credit.dart';
+import './screens/games/game-over.dart';
+import './screens/games/incorrect-answer.dart';
+import './screens/games/multi-questions.dart';
+import './screens/games/nickname.dart';
+import './screens/games/quiz-get-ready.dart';
+import './screens/games/rating.dart';
+import './screens/games/settings.dart';
+import './screens/games/sub-categories.dart';
+import './screens/games/subscription-plan.dart';
+import './screens/games/summary.dart';
+import './screens/games/waiting-player.dart';
+import './screens/phone-authentication.dart';
 
 import './components/image_crop_screen.dart';
 
@@ -75,17 +70,21 @@ import './testing/audio_player_example.dart';
 import './testing/video_player_example.dart';
 import './testing/google_map_example.dart';
 import './testing/geolocation_example.dart';
-// import './testing/downloader.dart';
 import './testing/reusable_downloader.dart';
 import './testing/firebase_storage_test.dart';
 import './testing/test_backblaze.dart';
 import './testing/test_aws_s3.dart';
 import './testing/test_azure.dart';
-
-import 'package:education_app/testing/components_seventh.dart';
-
-import './providers/auth.dart';
-import './providers/rss_service.dart';
+import './testing/cache-testing.dart';
+import './testing/data-table-example.dart';
+import './testing/demo-sqlite.dart';
+import './testing/dialog-flow.dart';
+import './testing/firebase_chat.dart';
+import './testing/native-code-tester.dart';
+import './testing/signature-pad.dart';
+import './testing/view-pdf.dart';
+import './testing/web_socket.dart';
+import './testing/components_seventh.dart';
 
 void main() => runApp(MyApp());
 
@@ -95,6 +94,7 @@ class MyApp extends StatelessWidget {
     fontSize: 18.0,
   );
 
+  // CREATING APPBAR THEME. WILL BE USED IN THEMEDATA
   final AppBarTheme getLightAppbarTheme = AppBarTheme(
     brightness: Brightness.light,
     color: Color(kAppBackgroundColor),
@@ -111,6 +111,7 @@ class MyApp extends StatelessWidget {
     iconTheme: IconThemeData(color: Color(kNavbarIconColor)),
   );
 
+  // CREATING LIGHT THEMEDATA
   ThemeData getLightThemeData() {
     return ThemeData(
       brightness: Brightness.light,
@@ -118,15 +119,6 @@ class MyApp extends StatelessWidget {
       accentColor: Color(kAccentColor),
       fontFamily: 'Inter',
       appBarTheme: getLightAppbarTheme,
-    );
-  }
-
-  ThemeData getDarkThemeData() {
-    return ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: Color(kPrimaryColor),
-      accentColor: Color(kAccentColor),
-      fontFamily: 'Inter',
     );
   }
 
@@ -146,14 +138,15 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Education App',
           theme: getLightThemeData(),
-          // theme: getDarkThemeData(),
-          home: PhoneAuthentication(),
-          // auth.status == Status.Unauthenticated
-          //     ? WelcomePage()
-          //     : HomePage(),
-          // auth.status == Status.Unauthenticated
-          //     ? EmailPinVerification()
-          //     : HomePage(),
+
+          /**
+           * AUTHPROVIDER authentication checking.
+           */
+          home: auth.status == Status.Unauthenticated ? WelcomePage() : HomePage(),
+
+          /**
+           * Defining Routes
+           */
           routes: {
             /**
              * App Screens
@@ -164,8 +157,7 @@ class MyApp extends StatelessWidget {
             SignupPage.PAGEID: (ctx) => SignupPage(),
             ForgetPasswordPage.PAGEID: (ctx) => ForgetPasswordPage(),
             ChangePasswordPage.PAGEID: (ctx) => ChangePasswordPage(),
-            EmailPasswordRecoveryConfirmation.PAGEID: (ctx) =>
-                EmailPasswordRecoveryConfirmation(),
+            EmailPasswordRecoveryConfirmation.PAGEID: (ctx) => EmailPasswordRecoveryConfirmation(),
             EmailPinVerification.PAGEID: (ctx) => EmailPinVerification(),
             FaqCategories.PAGEID: (ctx) => FaqCategories(),
             FaqList.PAGEID: (ctx) => FaqList(),
@@ -226,7 +218,6 @@ class MyApp extends StatelessWidget {
             VideoPlayerExample.PAGEID: (ctx) => VideoPlayerExample(),
             GoogleMapExample.PAGEID: (ctx) => GoogleMapExample(),
             GeolocationExample.PAGEID: (ctx) => GeolocationExample(),
-            // DownloaderPage.PAGEID: (ctx) => DownloaderPage(),
             ReusableDownloaderPage.PAGEID: (ctx) => ReusableDownloaderPage(),
             FireStorageTest.PAGEID: (ctx) => FireStorageTest(),
             TestBackBlaze.PAGEID: (ctx) => TestBackBlaze(),

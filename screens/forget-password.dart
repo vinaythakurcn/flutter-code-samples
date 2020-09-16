@@ -41,6 +41,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
 
   String _passwordRecoveryMethod = 'email';
 
+
+  /**
+   * RESET PASSWORD VIA EMAIL HANDLER
+   */
   void sendResetPasswordMail() async {
     if (_formKey.currentState.validate()) {
       final String emailVal = emailPhone.value.text.trim();
@@ -66,10 +70,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           _isLoading = false;
         });
 
-        // Toast.show("Recovery mail sent!", context,
-        //     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-
-        // Navigator.of(context).pop();
+        // REDIRECTING TO SUCCESS PAGE
         Navigator.of(context).pushNamed(
             EmailPasswordRecoveryConfirmation.PAGEID,
             arguments: emailVal);
@@ -84,6 +85,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     }
   }
 
+
+  /**
+   * RESET PASSWORD VIA SMS HANDLER
+   * THIS SECTION IS UNDER DEVELOPMENT
+   */
   void sendResetPasswordSMS() {
     Toast.show("Functionality under development", context,
         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -108,6 +114,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     );
   }
 
+  /**
+   * RENDER BODY OF THE SCREEN
+   */
   Widget buildWidget() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -154,6 +163,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     );
   }
 
+
+  /**
+   * RENDER TOP SECTION OF THE SCREEN
+   */
   List<Widget> topSection() {
     return [
       Container(
@@ -167,6 +180,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     ];
   }
 
+
+  /**
+   * RADIO BUTTON - CHOOSE BETWEEN EMAIL AND SMS
+   */
   Widget radioSection() {
     return Container(
       child: Column(
@@ -198,6 +215,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     );
   }
 
+
+  /**
+   * RENDER FORM OF THE SCREEN
+   */
   Widget formSection() {
     return Form(
       key: _formKey,

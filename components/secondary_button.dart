@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+/**
+ * CUSTOM COMPONENT FOR CREATING SECONDARY BUTTON
+ */
 class SecondaryButton extends StatelessWidget {
   final String text;
   final Function handler;

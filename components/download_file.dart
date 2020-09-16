@@ -8,6 +8,9 @@ import 'package:open_file/open_file.dart';
 
 enum DownloadStatus { initialized, downloading, finished }
 
+/**
+ * CUSTOM COMPONENT FOR CREATING DOWNLOAD COMPONENT
+ */
 class DownloadFile extends StatefulWidget {
   final String url;
   final String localPath;

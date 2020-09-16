@@ -1,16 +1,19 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import 'package:education_app/common-task.dart';
+import 'package:education_app/helper/functions.dart';
+
+import 'package:education_app/screens/email-pin-verification.dart';
+
 import 'package:education_app/components/app_loader.dart';
 import 'package:education_app/components/app_text.dart';
 import 'package:education_app/components/app_title.dart';
 import 'package:education_app/components/custom_flat_button.dart';
 import 'package:education_app/components/custom_input_form_field.dart';
 import 'package:education_app/components/primary_button.dart';
-import 'package:education_app/helper/functions.dart';
-import 'package:education_app/screens/email-pin-verification.dart';
-import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
+
 
 class PhoneAuthentication extends StatefulWidget {
   static final PAGEID = 'phone-auth';
@@ -22,8 +25,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
   final _formKey = GlobalKey<FormState>();
   final phone = TextEditingController();
   final countryCode = TextEditingController();
-  // final FocusNode _emailFocus = FocusNode();
-  // final FocusNode _passwordFocus = FocusNode();
+
   String deviceID;
   String phoneErrorMsg;
   String countryCodeErr;
@@ -37,6 +39,10 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
     super.initState();
   }
 
+
+  /**
+   * RETRIVE DEVICE TOKEN
+   */
   getDeviceToken() async {
     String deviceID = await getDeviceId();
     print(deviceID);
@@ -73,6 +79,10 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
     );
   }
 
+  
+  /**
+   * HANDLER TO LOGIN USING MOBILE No.
+   */
   onLogin() async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (_formKey.currentState.validate()) {
@@ -98,18 +108,29 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
     }
   }
 
+
+  /**
+   * SEND OTP TO GIVEN NUMBER
+   * PARAMS:
+   *  phone: number
+   *  countryCode: number
+   */
   sendOTP(phone, countryCode) async {
     Map data = {
       'phone_number': phone,
       'country_code': countryCode,
       'device_id': deviceID
     };
+    
     var res = await postRequest('devices', data);
     print(res.body);
+    
     setState(() {
       _isLoading = false;
     });
+    
     var response = json.decode(res.body);
+
     if (response['success']) {
       Toast.show(response['message'], context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -124,6 +145,9 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
     }
   }
 
+  /**
+   * RENDER THE BODY OF THE SCREEN
+   */
   Widget phoneScreen(BuildContext context) {
     return Form(
       key: _formKey,
@@ -181,15 +205,6 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                 errorMsg: phoneErrorMsg,
               ),
             ),
-            // CustomInputFormField(
-            //   keyboardType: TextInputType.phone,
-            //   fieldCtrl: phone,
-            //   onChangeHandler: (_) {
-            //     phoneErrorMsg = phoneValidator(phone.value.text);
-            //   },
-            //   hint: 'Phone number',
-            //   errorMsg: phoneErrorMsg,
-            // ),
             SizedBox(height: 24.0),
             Container(
               padding: EdgeInsets.only(left: 16.0, right: 16.0),

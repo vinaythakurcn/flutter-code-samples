@@ -40,11 +40,11 @@ class _SignupPageState extends State<SignupPage> {
   String passwordErrorMsg;
   String confirmPasswordErrorMsg;
 
-  // final FocusNode _emailFocus = FocusNode();
-  // final FocusNode _passwordFocus = FocusNode();
-
   bool _isLoading = false;
 
+  /**
+   * EMAIL/PASSWORD BASED SIGNUP HANDLER
+   */
   onSignup() async {
     if (_formKey.currentState.validate()) {
       final String emailVal = email.value.text.trim();
@@ -83,6 +83,9 @@ class _SignupPageState extends State<SignupPage> {
       });
 
       if (response) {
+        /**
+         * CLOSE SIGNUP SCREEN USING NAVIGATOR AS HOME SCREEN ROUTED IN BEHIND AS THE STATE CHANGED
+         */
         Future.delayed(Duration(seconds: 1), () {
           Navigator.popUntil(context, (r) {
             print(r.toString());
@@ -120,6 +123,10 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+
+  /**
+   * RENDER BODY OF THE SCREEN
+   */
   Widget buildWidget() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -143,6 +150,10 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+
+  /**
+   * RENDER SIGNUP FORM
+   */
   Widget buildFormSection() {
     return Form(
       key: _formKey,
@@ -210,6 +221,10 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+
+  /**
+   * RENDER BOTTOM SECTION OF THE SCREEN
+   */
   Widget buildButtomNav() {
     return Container(
       margin: EdgeInsets.only(top: 20.0),
@@ -255,9 +270,6 @@ class _SignupPageState extends State<SignupPage> {
     email.dispose();
     password.dispose();
     confirmPassword.dispose();
-
-    // _emailFocus.dispose();
-    // _passwordFocus.dispose();
     super.dispose();
   }
 }

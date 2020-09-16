@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING FLAT BUTTON
+ */
 class CustomFlatButton extends StatelessWidget {
   final String text;
   final Function handler;

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING SEGMENT TAB
+ */
 class CustomSegmentTab extends StatelessWidget {
   final String label;
   final BorderRadius borderRadius;

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:education_app/common-task.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,9 +41,6 @@ class _LoginPageState extends State<LoginPage> {
   final email = TextEditingController();
   final password = TextEditingController();
 
-  // final FocusNode _emailFocus = FocusNode();
-  // final FocusNode _passwordFocus = FocusNode();
-
   String emailErrorMsg;
   String passwordErrorMsg;
 
@@ -53,19 +48,12 @@ class _LoginPageState extends State<LoginPage> {
 
   initState() {
     super.initState();
-
-    // isWelcomePageDisplayed(context);
   }
 
-  // isWelcomePageDisplayed(context) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool welcomePage = prefs.getBool('welcomePage') ?? false;
 
-  //   if (!welcomePage) {
-  //     Navigator.of(context).pushReplacementNamed(WelcomePage.PAGEID);
-  //   }
-  // }
-
+  /**
+   * EMAIL/PASSWORD BASED LOGIN HANDLER
+   */
   onLogin() async {
     FocusScope.of(context).requestFocus(FocusNode());
 
@@ -73,7 +61,10 @@ class _LoginPageState extends State<LoginPage> {
       final String emailVal = email.value.text.trim();
       final String paswordVal = password.value.text.trim();
 
+      // VALIDATE EMAIL
       emailErrorMsg = emailValidator(emailVal);
+
+      // VALIDATE PASSWORD
       passwordErrorMsg = passwordValidator(paswordVal);
 
       setState(() {});
@@ -88,10 +79,7 @@ class _LoginPageState extends State<LoginPage> {
         _isLoading = true;
       });
 
-      // getLoginData(emailVal, paswordVal);
-
-      final response =
-          await Provider.of<Auth>(context).signIn(emailVal, paswordVal);
+      final response = await Provider.of<Auth>(context).signIn(emailVal, paswordVal);
 
       setState(() {
         _isLoading = false;
@@ -111,22 +99,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  getLoginData(email, password) async {
-    Map data = {'email': email, 'password': password};
-    // var body = json.encode(data);
-    // var res = await http.post('$ROOT_URL' 'register',
-    //     headers: {"Content-Type": "application/json"}, body: body);
-    // print("${res.statusCode}");
-    // print("${res.body}");
-    // var a = json.decode(res.body);
-    // print(a['message']);
-    var res = await postRequest('login', data);
-    print(res.body);
-  }
 
+  /**
+   * FACEBOOK LOGIN HANDLER
+   */
   loginWithFacebook() async {
     final facebookLogin = FacebookLogin();
-    // final result = await facebookLogin.logInWithReadPermissions(['email']);
     final result = await facebookLogin.logIn(['email']);
 
     print('Facebook login result : $result');
@@ -168,6 +146,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  /**
+   * RENDER LOGIN FORM
+   */
   Widget buildFormSection() {
     return Form(
       key: _formKey,
@@ -238,6 +219,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+
+  /**
+   * RENDER BOTTOM SECTION OF THE SCREEN
+   */
   Widget buildButtomNav() {
     return Container(
       margin: EdgeInsets.only(top: 20.0),
@@ -278,6 +263,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+
+  /**
+   * RENDER BODY OF THE SCREEN
+   */
   Widget buildWidget() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -305,10 +294,6 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     email.dispose();
     password.dispose();
-
-    // _emailFocus.dispose();
-    // _passwordFocus.dispose();
-
     super.dispose();
   }
 }

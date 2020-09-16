@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+/**
+ * CUSTOM COMPONENT FOR ICON BUTTON
+ */
 class AppBarIconButton extends StatelessWidget {
   final IconData icon;
   final Function onPressed;

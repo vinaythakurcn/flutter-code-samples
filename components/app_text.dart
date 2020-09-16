@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING TEXT
+ */
 class AppText extends StatelessWidget {
   final String text;
   final double size;

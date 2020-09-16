@@ -1,6 +1,10 @@
 import 'package:education_app/constants.dart';
 import 'package:flutter/material.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING TITLE
+ */
 class AppTitle extends StatelessWidget {
   final String text;
   final double size;

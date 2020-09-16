@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CustomSegment extends StatelessWidget {
+
+/**
+ * CUSTOM COMPONENT FOR CREATING SEGMENTS
+ */class CustomSegment extends StatelessWidget {
   final List<Widget> tabs;
 
   CustomSegment(this.tabs);

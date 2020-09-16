@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+/**
+ * CUSTOM COMPONENT FOR CREATING FLAT BUTTON
+ */
 class AppBarFlatButton extends StatelessWidget {
   final String text;
   final Function onPressed;

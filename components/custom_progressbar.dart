@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING PROGRESS BAR
+ */
 class CustomProgressbar extends StatelessWidget {
   final Color completeColor;
   final Color inCompleteColor;

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants.dart';
 
+/**
+ * CUSTOM COMPONENT FOR CREATING TEXTAREA WITH CHARACTERS COUNT
+ */
 class CustomTextarea extends StatelessWidget {
   final Function onChanged;
   final TextEditingController controller;

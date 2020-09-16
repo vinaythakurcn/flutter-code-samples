@@ -31,10 +31,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   String passwordErrorMsg;
   String confirmPasswordErrorMsg;
 
-  // final FocusNode _oldFocus = FocusNode();
-  // final FocusNode _newFocus = FocusNode();
-  // final FocusNode _confirmFocus = FocusNode();
-
   bool _isLoading = false;
 
   onPasswordChange() async {
@@ -100,6 +96,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     );
   }
 
+
+  /**
+   * RENDER BODY OF THE SCREEN
+   */
   Widget buildWidget() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -122,6 +122,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     );
   }
 
+
+  /**
+   * RENDER CHANGE PASSWORD FORM
+   */
   Widget buildFormSection() {
     return Form(
       key: _formKey,
@@ -194,10 +198,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     _oldPassword.dispose();
     _newPassword.dispose();
     _confirmPassword.dispose();
-
-    // _oldFocus.dispose();
-    // _newFocus.dispose();
-    // _confirmFocus.dispose();
 
     super.dispose();
   }

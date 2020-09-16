@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 enum Shape { rounded, block }
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING PRIMARY BUTTON
+ */
 class PrimaryButton extends StatelessWidget {
   final String text;
   final Function handler;

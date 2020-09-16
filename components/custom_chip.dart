@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING CHIPS
+ */
 class CustomChip extends StatelessWidget {
   final String label;
 

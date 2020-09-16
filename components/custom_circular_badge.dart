@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+/**
+ * CUSTOM COMPONENT FOR CREATING CIRCULAR BADGE
+ */
 class CustomCircularBadge extends StatelessWidget {
   final Color color;
   final String image;

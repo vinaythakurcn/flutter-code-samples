@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../helper/functions.dart';
 
+import './edit-profile.dart';
+
 import '../components/app_text.dart';
 import '../components/app_title.dart';
 import '../components/appbar_iconbtn.dart';
@@ -11,7 +13,6 @@ import '../components/custom_chip.dart';
 import '../components/custom_circular_badge.dart';
 import '../components/custom_progressbar.dart';
 
-import './edit-profile.dart';
 
 class UserProfile extends StatefulWidget {
   static const PAGEID = 'user-profile';
@@ -28,7 +29,6 @@ class _UserProfileState extends State<UserProfile> {
   double linkedInTop;
   double linkedInOpacity = 1.0;
 
-  // bool _showLargeTitle = true;
 
   @override
   void initState() {
@@ -36,6 +36,10 @@ class _UserProfileState extends State<UserProfile> {
 
     linkedInTop = kExpandedHeight - 32;
 
+    /**
+     * LISTENING TO SCROLL EVENT SO THAT LINKEDIN BUTTON CAN BE SHOWN AND HIDE 
+     * ACCORDINGLY
+     */
     _scrollController = ScrollController()
       ..addListener(() {
         double top = kExpandedHeight - _scrollController.offset - 32;
@@ -52,12 +56,13 @@ class _UserProfileState extends State<UserProfile> {
           linkedInOpacity = 0.0;
         }
 
-        // _showLargeTitle = top > 80;
-
         setState(() {});
       });
   }
 
+  /**
+   * RETURNS BOOLEAN SO THAT WE CAN SHOW/HIDE TITLE
+   */
   bool get _showTitle {
     return _scrollController.hasClients &&
         _scrollController.offset > kExpandedHeight - 80;
@@ -134,23 +139,22 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
+  /**
+   * CREATING APPBAR USING SliverAppBar
+   */
   Widget getSliverAppBar() {
     return SliverAppBar(
-      // backgroundColor: Colors.transparent,
       expandedHeight: kExpandedHeight,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: _showTitle ? true : false,
-        titlePadding:
-            _showTitle ? null : EdgeInsets.only(left: 24.0, bottom: 24.0),
-        // title: _showLargeTitle ? getFullTitle() : getShortTitle(),
+        titlePadding: _showTitle ? null : EdgeInsets.only(left: 24.0, bottom: 24.0),
         title: _showTitle ? getShortTitle() : getFullTitle(),
         background: Image.network(
           "https://firebasestorage.googleapis.com/v0/b/educationappflutter.appspot.com/o/avatar.png?alt=media&",
           fit: BoxFit.cover,
         ),
       ),
-      // actions: <Widget>[],
       leading: getBackButton(context),
       actions: <Widget>[
         AppBarIconButton(
@@ -163,6 +167,10 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
+
+  /**
+   * CREATING LISTVIEW USING SliverList
+   */
   Widget getSliverList() {
     return SliverList(
       delegate: SliverChildListDelegate([
@@ -266,7 +274,6 @@ class _UserProfileState extends State<UserProfile> {
   Widget getUpcomingBadges() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      // margin: EdgeInsets.only(bottom: 16.0),
       child: Card(
         elevation: 4.0,
         child: Column(
