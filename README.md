@@ -3,7 +3,7 @@
 ### Folder Structure
 | Folder/Filename | Description |
 | ------ | ------ |
-| components | contains custom reusable components  |
-| providers | contains services based on provider package |
-| screens | contains widgets that represents UI screens for the app |
+| models | contain models definitions |
+| utils | contains utility functions and classes |
+| views | contains widgets that represents UI screens for the app and there BLOC classes |
 | main.dart | Starting point of the apps. It holds the configurations for the app. e.g routing, theming etc. |
